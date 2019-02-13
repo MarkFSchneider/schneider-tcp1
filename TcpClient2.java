@@ -19,28 +19,34 @@ import java.net.Socket;
 class TcpClient {
   public static void main(String[] argv) throws Exception {
 
-    BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-    System.out.println("Type a sentence :");
-    String sentence = inFromUser.readLine();
+    connection();
+    connection();
 
-    Socket clientSocket = null;
+    
+  }
+  
+  public static void connection() throws Exception {
+	  BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+	    System.out.println("Type a sentence :");
+	    String sentence = inFromUser.readLine();
 
-    try {
-      clientSocket = new Socket("192.168.1.125", 6789);
-    } catch (Exception e) {
-      System.out.println("Failed to open socket connection");
-      System.exit(0);
-    }
+	    Socket clientSocket = null;
 
-    DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-    BufferedReader inFromServer =  new BufferedReader(
-        new InputStreamReader(clientSocket.getInputStream()));
-    outToServer.writeBytes(sentence + '\n');
+	    try {
+	      clientSocket = new Socket("localhost", 6789);
+	    } catch (Exception e) {
+	      System.out.println("Failed to open socket connection");
+	      System.exit(0);
+	    }
 
-    String modifiedSentence = inFromServer.readLine();
-    System.out.println("FROM SERVER: " + modifiedSentence);
+	    DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+	    BufferedReader inFromServer =  new BufferedReader(
+	        new InputStreamReader(clientSocket.getInputStream()));
+	    outToServer.writeBytes(sentence + '\n');
 
-    clientSocket.close();
+	    String modifiedSentence = inFromServer.readLine();
+	    System.out.println("FROM SERVER: " + modifiedSentence);
 
+	    clientSocket.close();
   }
 }

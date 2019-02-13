@@ -21,17 +21,20 @@ class TcpServer {
 
   public static void main(String[] argv) throws Exception {
     //String welcomeMessage = "Welcome\n";
-    String clientSentence;
+    
+	  
+	  
+	String clientSentence;
     String capitalizedSentence;
 
     ServerSocket welcomeSocket = null;
 
     try {
       welcomeSocket = new ServerSocket(6789);
-    } catch (Exception e) {
+         } catch (Exception e) {
       System.out.println("Failed to open socket connection");
       System.exit(0);
-    }
+                               }
 
     while (true) {
       Socket connectionSocket = welcomeSocket.accept();
@@ -46,6 +49,14 @@ class TcpServer {
       outToClient.writeBytes(capitalizedSentence);
 
       connectionSocket.close();
-    }
+                  } 
+    
+    
   }
+  
+  public void connection() {
+	  
+  }
+  
+  
 }
